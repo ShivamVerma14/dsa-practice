@@ -9,6 +9,17 @@ public:
     Node (int val) : data(val), next(nullptr) {}
 };
 
+Node* reverse_list_recursive(Node* head) {
+    if (head == nullptr || head->next == nullptr)
+        return head;
+
+    Node* new_head = reverse_list_recursive(head->next);
+    head->next->next = head;
+    head->next = nullptr;
+
+    return new_head;
+}
+
 Node* reverse_list(Node* head) {
     Node* prev = nullptr;
     Node* curr = head;
@@ -39,7 +50,10 @@ int main() {
     head->next->next->next->next = new Node(5);
 
     head = reverse_list(head);
-
     print_list(head);
+
+    head = reverse_list_recursive(head);
+    print_list(head);
+    
     return 0;
 }
